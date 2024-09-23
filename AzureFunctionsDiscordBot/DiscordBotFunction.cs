@@ -12,6 +12,7 @@ using Discord;
 using Azure;
 using Azure.AI.OpenAI;
 using OpenAI.Chat;
+using System.Linq;
 
 namespace AzureFunctionsDiscordBot;
 
@@ -21,7 +22,6 @@ public static class DiscordBotFunction
     private static readonly string AzureAIEndpoint = Environment.GetEnvironmentVariable("AzureAIEndpoint");
     private static readonly string AzureAPIKey = Environment.GetEnvironmentVariable("AzureAPIKey");
     private static readonly string DiscordBotToken = Environment.GetEnvironmentVariable("DiscordBotToken");
-    private static readonly string DiscordClientID = Environment.GetEnvironmentVariable("DiscordClientID");
     private static readonly string DeploymentName = "gpt-4o";
 
     [FunctionName("DiscordBotFunction")]
@@ -64,11 +64,17 @@ public static class DiscordBotFunction
 
     private static async Task HandleMessageAsync(SocketMessage message)
     {
-        if (message.Author.IsBot) return;
-        if (message.Channel.Id != ulong.Parse(DiscordClientID)) return;
+         if (message.Author.IsBot) return;
 
-        string response = await GetAzureAIResponse(message.Content);
-        await message.Channel.SendMessageAsync(response);
+        var botUserId = _client.CurrentUser.Id;
+
+        if (message.MentionedUsers.Any(user => user.Id == botUserId))
+        {
+            string response = await GetAzureAIResponse(message.Content);
+            if (string.IsNullOrEmpty(response)) return;
+
+            await message.Channel.SendMessageAsync(response);
+        }
     }
 
     private static async Task<string> GetAzureAIResponse(string input)
@@ -87,13 +93,13 @@ public static class DiscordBotFunction
             else
             {
                 Console.WriteLine("Response content is missing or empty.");
-                return "No response content available.";
+                return "";
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error fetching Azure AI response: {ex.Message}");
-            return $"Error occurred: {ex.Message}";
+            return "";
         }
     }
 }
