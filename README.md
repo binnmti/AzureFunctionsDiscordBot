@@ -1,0 +1,2 @@
+# AzureFunctionsDiscordBot
+AzureFunctionsDiscordBot
