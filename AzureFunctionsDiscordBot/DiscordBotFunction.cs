@@ -1,12 +1,10 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Discord.WebSocket;
 using Discord;
 using Azure;
@@ -61,7 +59,8 @@ public static class DiscordBotFunction
 
         if (message.MentionedUsers.Any(user => user.Id == botUserId))
         {
-            string response = await GetAzureAIResponse(message.Content);
+            var content = message.Content.Replace($"<@{botUserId}>", "").Trim();
+            string response = await GetAzureAIResponse(content);
             if (string.IsNullOrEmpty(response)) return;
 
             await message.Channel.SendMessageAsync(response);
