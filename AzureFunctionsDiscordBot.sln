@@ -5,6 +5,11 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsDiscordBot", "AzureFunctionsDiscordBot\AzureFunctionsDiscordBot.csproj", "{465FFF5E-F614-4F9B-A375-A4171C07552D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{986CB137-DE1B-4385-9473-D504696588C4}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\wake-function.yml = .github\workflows\wake-function.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

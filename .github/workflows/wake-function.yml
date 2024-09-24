@@ -1,0 +1,19 @@
+name: Deploy and Wake Function
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Azure Functions Deploy
+        uses: Azure/functions-action@v1
+        with:
+          app-name: AzureFunctionsDiscordBotWithCalc
+          package: AzureFunctionsDiscordBotWithCalc
+      
+      - name: Wake Azure Function
+        run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net"
