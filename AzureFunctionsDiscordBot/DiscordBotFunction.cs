@@ -23,7 +23,7 @@ public static class DiscordBotFunction
     private static readonly string DeploymentName = "gpt-4o";
 
     [FunctionName("DiscordBotFunction")]
-    public static async Task<IActionResult> Run(
+    public static async Task<IActionResult> RunHttpTrigger(
         [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
         ILogger log)
     {
@@ -33,7 +33,7 @@ public static class DiscordBotFunction
     }
 
     [FunctionName("KeepAliveFunction")]
-    public static async Task Run(
+    public static async Task RunTimerTrigger(
         [TimerTrigger("0 */1 * * * *")] TimerInfo myTimer, ILogger log)
     {
         log.LogInformation($"Keep alive function executed at: {DateTime.Now}");
