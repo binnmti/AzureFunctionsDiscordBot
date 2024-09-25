@@ -12,8 +12,8 @@ jobs:
       - name: Azure Functions Deploy
         uses: Azure/functions-action@v1
         with:
-          app-name: AzureFunctionsDiscordBotWithCalc
-          package: AzureFunctionsDiscordBotWithCalc
+          app-name: DiscordBotFunction
+          package: DiscordBotFunction
       
       - name: Wake Azure Function
         run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net"
