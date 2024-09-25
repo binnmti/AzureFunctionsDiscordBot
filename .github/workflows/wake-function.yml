@@ -1,4 +1,4 @@
-name: Deploy and Wake Function
+name: Deploy Azure Function App
 
 on:
   push:
@@ -6,14 +6,24 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Azure Functions Deploy
-        uses: Azure/functions-action@v1
-        with:
-          app-name: AzureFunctionsDiscordBot
-          package: ./AzureFunctionsDiscordBot/output
-      
-      - name: Wake Azure Function
-        run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net"
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Azure CLI
+      uses: azure/CLI@v1
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy Azure Functions App
+      run: |
+        func azure functionapp publish AzureFunctionsDiscordBot
+ 
+    - name: Wake Azure Function 
+      run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net"
