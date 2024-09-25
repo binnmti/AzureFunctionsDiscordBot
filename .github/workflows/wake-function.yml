@@ -25,7 +25,7 @@ jobs:
       with:
         app-name: AzureFunctionsDiscordBot
         package: './output'
-        publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE  }}
  
     - name: Wake Azure Function 
       run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net"
