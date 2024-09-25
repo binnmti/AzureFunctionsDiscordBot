@@ -1,5 +1,4 @@
-name: Deploy DotNet project to Azure Function App
-
+name: Deploy And Wake
 on:
   push:
     branches:
@@ -28,4 +27,4 @@ jobs:
         publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE  }}
  
     - name: Wake Azure Function 
-      run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net"
+      run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net/api/DiscordBotFunction"
