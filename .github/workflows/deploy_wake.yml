@@ -27,4 +27,4 @@ jobs:
         publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE  }}
  
     - name: Wake Azure Function 
-      run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net/api/DiscordBotFunction"
+      run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net/api/DiscordBotFunction?code=${{ secrets.AZURE_FUNCTIONAPP_DEFAULT_KEY  }}"
