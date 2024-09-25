@@ -32,6 +32,13 @@ public static class DiscordBotFunction
         return new OkObjectResult("This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.");
     }
 
+    [FunctionName("KeepAliveFunction")]
+    public static void Run(
+        [TimerTrigger("0 */1 * * * *")] TimerInfo myTimer, ILogger log)
+    {
+        log.LogInformation($"Keep alive function executed at: {DateTime.Now}");
+    }
+
     public static async Task RunDiscordBotAsync(ILogger log)
     {
         if (_client != null) return;

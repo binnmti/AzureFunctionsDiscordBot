@@ -42,7 +42,5 @@ jobs:
       uses: Azure/functions-action@v1
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        publish-profile: ${{ secrets.DiscordBotKun_33B6 }}
+        publish-profile: ${{ secrets.DiscordBotKun_C845 }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-    - name: Wake Azure Function 
-      run: curl -X GET "https://discordbotkun.azurewebsites.net/api/DiscordBotFunction?code=${{ secrets.AZURE_FUNCTIONAPP_DEFAULT_KEY  }}"
