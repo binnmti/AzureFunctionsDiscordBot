@@ -1,4 +1,4 @@
-name: Deploy Azure Function App
+name: Deploy DotNet project to Azure Function App
 
 on:
   push:
@@ -7,23 +7,25 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
+    environment: dev
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
 
-    - name: Setup Azure CLI
-      uses: azure/CLI@v1
-
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Deploy Azure Functions App
+    - name: 'Resolve Project Dependencies Using Dotnet'
+      shell: pwsh
       run: |
-        func azure functionapp publish AzureFunctionsDiscordBot
+        dotnet build --configuration Release --output ./output
+        popd
+
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: AzureFunctionsDiscordBot
+        package: './output'
+        publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
  
     - name: Wake Azure Function 
       run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net"
