@@ -13,7 +13,7 @@ jobs:
         uses: Azure/functions-action@v1
         with:
           app-name: AzureFunctionsDiscordBot
-          package: AzureFunctionsDiscordBot
+          package: ./output
       
       - name: Wake Azure Function
         run: curl -X GET "https://azurefunctionsdiscordbotwithcalc.azurewebsites.net"
