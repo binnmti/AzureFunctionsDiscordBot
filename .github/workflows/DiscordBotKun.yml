@@ -1,4 +1,4 @@
-name: .NET Core アプリケーションを関数アプリ DiscordBotKun にビルドしてデプロイする
+name: Build And Deloy
 on:
   push:
     branches:
@@ -44,5 +44,3 @@ jobs:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         publish-profile: ${{ secrets.DiscordBotKun_C845 }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-    - name: Wake Azure Function 
-      run: curl -X GET "https://discordbotkun.azurewebsites.net/api/DiscordBotFunction?code=${{ secrets.AZURE_FUNCTIONAPP_DEFAULT_KEY  }}"
