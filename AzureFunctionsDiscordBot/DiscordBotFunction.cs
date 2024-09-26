@@ -34,7 +34,7 @@ public static class DiscordBotFunction
 
     [FunctionName("KeepAliveFunction")]
     public static async Task RunTimerTrigger(
-        [TimerTrigger("0 */1 * * * *")] TimerInfo myTimer, ILogger log)
+        [TimerTrigger("0 */5 * * * *")] TimerInfo myTimer, ILogger log)
     {
         log.LogInformation($"Keep alive function executed at: {DateTime.Now}");
         await RunDiscordBotAsync(log);
