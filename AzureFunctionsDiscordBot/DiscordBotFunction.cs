@@ -97,7 +97,7 @@ public static class DiscordBotFunction
         catch (Exception ex)
         {
             Console.WriteLine($"Error fetching Azure AI response: {ex.Message}");
-            return "";
+            return ex.Message;
         }
     }
 }
